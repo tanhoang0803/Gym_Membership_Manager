@@ -176,7 +176,7 @@ Dashboard aggregates.
 
 ## Author
 
-**TanQHoang** — Created July 2024
+**TanQHoang** — Created July 2024 : html + css + js
 Full-stack upgrade: backend + database added March 2026
 
 ---
