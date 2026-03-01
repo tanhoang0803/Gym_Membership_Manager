@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Membership Manager</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────── -->
+  <header>
+    <h1>Welcome to my Gym</h1>
+    <nav class="nav-container">
+      <ul>
+        <li><a href="#About">ABOUT US</a></li>
+        <li><a href="#Content">MEMBERS</a></li>
+        <li><a href="#Contact">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── MAIN ──────────────────────────────────────────────── -->
+  <main>
+
+    <!-- About Section -->
+    <section id="About">
+      <h2>Introduction</h2>
+      <article>
+        <p><i>Our gym isn't just a place to work out; it's a sanctuary for wellness enthusiasts who appreciate
+          the finer details of health and fitness. From the moment you step inside, you're greeted by an
+          atmosphere of tranquility and motivation. Whether you're embarking on a personal fitness journey or
+          seeking expert guidance, our elegant gym offers a blend of comfort and performance, ensuring every
+          visit leaves you feeling rejuvenated and inspired.</i></p>
+      </article>
+      <span>
+        <ul>
+          <li><b>State-of-the-Art Equipment:</b> High-quality exercise machines, free weights, and functional training equipment.</li>
+          <li><b>Cleanliness and Hygiene:</b> Regular sanitization of equipment, locker rooms, and common areas.</li>
+          <li><b>Professional Staff and Personal Trainers:</b> Qualified trainers offering personalized workout plans.</li>
+          <li><b>Variety of Classes and Programs:</b> Yoga, spin, HIIT, weight loss, muscle gain, and more.</li>
+          <li><b>Amenities and Facilities:</b> Showers, changing rooms, sauna, towel service, and secure lockers.</li>
+          <li><b>Safety Measures:</b> Proper equipment maintenance, first aid, CPR-trained staff.</li>
+          <li><b>Accessibility and Convenience:</b> Flexible hours, user-friendly booking, ample parking.</li>
+          <li><b>Community and Social Interaction:</b> A welcoming environment encouraging members to connect.</li>
+          <li><b>Nutritional Guidance and Support:</b> Nutritional counseling and meal planning advice.</li>
+        </ul>
+      </span>
+    </section>
+
+    <!-- Members Section -->
+    <section id="Content">
+
+      <!-- Stats Dashboard -->
+      <div class="stats-bar">
+        <div class="stat-card" id="stat-total">
+          <span class="stat-value" id="val-total">—</span>
+          <span class="stat-label">Total Members</span>
+        </div>
+        <div class="stat-card delivered">
+          <span class="stat-value" id="val-delivered">—</span>
+          <span class="stat-label">Delivered</span>
+        </div>
+        <div class="stat-card shipped">
+          <span class="stat-value" id="val-shipped">—</span>
+          <span class="stat-label">Shipped</span>
+        </div>
+        <div class="stat-card pending">
+          <span class="stat-value" id="val-pending">—</span>
+          <span class="stat-label">Pending</span>
+        </div>
+        <div class="stat-card cancelled">
+          <span class="stat-value" id="val-cancelled">—</span>
+          <span class="stat-label">Cancelled</span>
+        </div>
+        <div class="stat-card revenue">
+          <span class="stat-value" id="val-revenue">—</span>
+          <span class="stat-label">Revenue</span>
+        </div>
+      </div>
+
+      <!-- Table Header: title + controls -->
+      <section class="table-header">
+        <h2>LIST OF MEMBERS</h2>
+        <div class="table-controls">
+          <input  type="text"   id="searchInput"    class="ctrl-input"   placeholder="Search name or location…">
+          <select id="filterStatus" class="ctrl-select">
+            <option value="">All Statuses</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+          <button id="btnAdd" class="btn btn-add">+ Add Member</button>
+        </div>
+      </section>
+
+      <!-- Table Body -->
+      <section class="table-body">
+        <table id="membersTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-col="id">ID <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="name">CUSTOMER <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="location">LOCATION <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="date">DATE <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="status">STATUS <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="amount">AMOUNT <span class="sort-icon">↕</span></th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Rows injected by JS -->
+            <tr class="skeleton-row"><td colspan="7"><div class="skeleton"></div></td></tr>
+            <tr class="skeleton-row"><td colspan="7"><div class="skeleton"></div></td></tr>
+            <tr class="skeleton-row"><td colspan="7"><div class="skeleton"></div></td></tr>
+          </tbody>
+        </table>
+        <p id="emptyMsg" class="empty-msg" style="display:none">No members found.</p>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer id="Contact">
+    <p>Created by TanQHoang</p>
+    <p>&copy; 2024 &ndash; 2026 WebProject. All rights reserved.</p>
+  </footer>
+
+  <!-- ── ADD / EDIT MODAL ───────────────────────────────────── -->
+  <div id="memberModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Member</h3>
+        <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <form id="memberForm" novalidate>
+        <input type="hidden" id="memberId">
+
+        <div class="form-group">
+          <label for="fName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fName" placeholder="e.g. John Doe" required>
+          <span class="field-error" id="err-name"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="fLocation">Location</label>
+          <input type="text" id="fLocation" placeholder="e.g. New York">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fDate">Date</label>
+            <input type="date" id="fDate">
+          </div>
+          <div class="form-group">
+            <label for="fStatus">Status</label>
+            <select id="fStatus">
+              <option value="Pending">Pending</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fAmount">Amount ($)</label>
+          <input type="number" id="fAmount" placeholder="0.00" min="0" step="0.01">
+        </div>
+
+        <div class="form-group">
+          <label for="fAvatar">Avatar URL (optional)</label>
+          <input type="text" id="fAvatar" placeholder="images/photo.jpg">
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-cancel" id="btnModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-save" id="btnModalSave">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── DELETE CONFIRM MODAL ───────────────────────────────── -->
+  <div id="deleteModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Delete Member</h3>
+        <button class="modal-close" id="deleteModalClose">&times;</button>
+      </div>
+      <p class="confirm-text">Are you sure you want to delete <strong id="deleteName"></strong>?<br>This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" id="btnDeleteCancel">Cancel</button>
+        <button class="btn btn-danger" id="btnDeleteConfirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOAST ──────────────────────────────────────────────── -->
+  <div id="toastContainer" aria-live="polite"></div>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
