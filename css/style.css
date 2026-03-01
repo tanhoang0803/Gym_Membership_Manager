@@ -107,6 +107,33 @@ main {
   line-height: 1.5;
 }
 
+/* ── DEMO BANNER ───────────────────────────────────────────────────────────── */
+.demo-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #fef3c7;
+  border: 1.5px solid #f59e0b;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.88rem;
+  color: #92400e;
+  width: min(99vw, 1200px);
+}
+.demo-banner code {
+  background: #fde68a;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
+.demo-banner a {
+  color: #b45309;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 /* ── STATS BAR ─────────────────────────────────────────────────────────────── */
 .stats-bar {
   display: flex;
