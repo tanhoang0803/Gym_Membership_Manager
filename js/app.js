@@ -6,6 +6,10 @@
 
 const API = '/api/members';
 
+// Detect static hosting (GitHub Pages, file://) — skip all API calls
+const IS_STATIC = window.location.hostname.endsWith('.github.io') ||
+                  window.location.protocol === 'file:';
+
 // ── Demo data (used when backend is unreachable) ──────────────────────────────
 const DEMO_DATA = [
   { id:1, name:'Dwayne Johnson',    location:'USA',       date:'2024-07-23', status:'Delivered', amount:128.56, avatar:'images/Dwayne-Johnson.jpg'    },
@@ -335,5 +339,12 @@ document.addEventListener('keydown', e => {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 (async () => {
-  await Promise.all([loadStats(), loadMembers()]);
+  if (IS_STATIC) {
+    // GitHub Pages / file:// — go straight to demo mode, no API calls
+    enableDemoMode();
+    renderStats(demoStats(DEMO_DATA));
+    renderTable(demoFilter(DEMO_DATA));
+  } else {
+    await Promise.all([loadStats(), loadMembers()]);
+  }
 })();
